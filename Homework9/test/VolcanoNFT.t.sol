@@ -16,14 +16,12 @@ contract VolcanoNFTTest is Test {
 
     function testMint() public {
         vm.startPrank(alice);
-        tokenId = nft.mint();
+        tokenId = nft.mintNFT(alice);
         assertEq(tokenId, 1);
         assertEq(nft.ownerOf(1), alice);
         assertEq(nft.balanceOf(alice), 1);
-        vm.stopPrank();
 
-        vm.startPrank(bob);
-        tokenId = nft.mint();
+        tokenId = nft.mintNFT(bob);
         assertEq(tokenId, 2);
         assertEq(nft.ownerOf(2), bob);
         assertEq(nft.ownerOf(1), alice);
@@ -34,7 +32,7 @@ contract VolcanoNFTTest is Test {
 
     function testTransfer() public {
         vm.startPrank(alice);
-        tokenId = nft.mint();
+        tokenId = nft.mintNFT(alice);
         nft.transferFrom(alice, bob, tokenId);
         assertEq(nft.ownerOf(tokenId), bob);
         assertEq(nft.balanceOf(alice), 0);
